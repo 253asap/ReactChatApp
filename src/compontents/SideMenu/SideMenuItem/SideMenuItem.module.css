@@ -1,0 +1,31 @@
+.SideMenuItem {
+  background-color: rgb(31, 155, 20);
+  height: 70px;
+  overflow: hidden;
+  width: 90%;
+  margin: 15px auto;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+}
+
+.SideMenuItem img {
+  height: 80%;
+  border: rgb(31, 215, 20) 2px solid;
+  border-radius: 50%;
+  margin: 0 10px;
+}
+
+.SideMenuItemText {
+  text-align: left;
+}
+
+.SideMenuItemText span {
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.SideMenuItemText p {
+  font-size: 0.9rem;
+  color: rgb(226, 226, 226);
+}
