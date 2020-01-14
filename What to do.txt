@@ -1,0 +1,4 @@
+Create login page
+create register page
+create basic chat rooms
+do database things
