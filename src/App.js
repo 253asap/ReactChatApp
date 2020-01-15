@@ -1,18 +1,22 @@
-import React, { Component } from "react";
-import "./App.css";
+import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Aux from "./hoc/Auxx";
 import Layout from "./containers/Layout/Layout";
-import ChatPage from "./compontents/Pages/ChatPage/ChatPage";
-import SideMenu from "./compontents/SideMenu/SideMenu";
+import LoginPage from "./compontents/Pages/LoginPage/LoginPage";
+import RegisterPage from "./compontents/Pages/RegisterPage/RegisterPage";
 
-class App extends Component {
+class App extends React.Component {
   render() {
     return (
-      <div>
-        <Layout>
-          <SideMenu />
-          <ChatPage />
-        </Layout>
-      </div>
+      <Router>
+        <Aux>
+          <Switch>
+            <Route path="/" exact component={Layout} />
+            <Route path="/register" component={RegisterPage} />
+            <Route path="/login" component={LoginPage} />
+          </Switch>
+        </Aux>
+      </Router>
     );
   }
 }
