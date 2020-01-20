@@ -9,9 +9,6 @@ const Navigation = props => (
         <li className={styles.Logo}>
           <img src={LogoImg} alt="Logo" />
         </li>
-        <li>
-          <span className={styles.Dropdown}>Chats</span>
-        </li>
       </ul>
       <ul>
         <li>

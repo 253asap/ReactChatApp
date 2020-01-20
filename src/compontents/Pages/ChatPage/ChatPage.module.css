@@ -8,4 +8,16 @@
   width: 80%;
   margin: auto;
   height: 82%;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+.Chat::-webkit-scrollbar {
+  width: 4px;
+}
+
+.Chat::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: rgb(31, 215, 20);
 }

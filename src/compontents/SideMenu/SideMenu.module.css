@@ -5,6 +5,29 @@
   overflow: auto;
 }
 
+.Sections {
+  height: 80px;
+  font-size: 2.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(51, 51, 51);
+}
+
+.Sections span {
+  margin: 0px 0px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Sections span:hover {
+  background-color: rgb(102, 102, 102);
+  cursor: pointer;
+}
+
 .SideMenu::-webkit-scrollbar {
   width: 8px;
 }

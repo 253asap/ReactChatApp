@@ -55,9 +55,13 @@
 }
 
 .LoginBox a {
-  color: white;
+  color: rgb(179, 179, 179);
   margin-top: 10px;
   font-size: 1.1rem;
+}
+
+.LoginBox a:hover {
+  color: white;
 }
 
 .LoginBox a span {
