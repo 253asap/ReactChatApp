@@ -9,6 +9,12 @@
   border-radius: 5px;
 }
 
+.SideMenuItem:hover {
+  cursor: pointer;
+  background-color: rgb(31, 215, 20);
+  color: rgb(255, 255, 255);
+}
+
 .SideMenuItem img {
   height: 80%;
   border: rgb(31, 215, 20) 2px solid;

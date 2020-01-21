@@ -7,7 +7,7 @@ const Navigation = props => (
     <nav>
       <ul>
         <li className={styles.Logo}>
-          <img src={LogoImg} alt="Logo" />
+          <img src={LogoImg} alt="Logo" key="logo" />
         </li>
       </ul>
       <ul>

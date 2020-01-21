@@ -14,7 +14,18 @@ const sideMenu = props => {
           DM's
         </span>
       </div>
-      <SideMenuItem />
+      {props.chats.map(room => {
+        return (
+          <SideMenuItem
+            topic={room.topic}
+            msgs={room.messages}
+            key={room.topic}
+            click={() => {
+              props.onclick(room.topic);
+            }}
+          />
+        );
+      })}
     </div>
   );
 };

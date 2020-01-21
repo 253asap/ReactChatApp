@@ -10,7 +10,7 @@ const chatPage = props => {
   });
   return (
     <div className={styles.ChatPage}>
-      <ChatrooomName />
+      <ChatrooomName topic={props.topic} />
       <div className={styles.Chat}>{messages}</div>
       <MessageEntry />
     </div>
