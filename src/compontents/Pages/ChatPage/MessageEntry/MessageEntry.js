@@ -5,8 +5,14 @@ import Aux from "../../../../hoc/Auxx";
 const messageEnty = props => (
   <Aux>
     <div className={styles.EntryArea}>
-      <textarea className={styles.MessageEntry} />
-      <button className={styles.Button}>Send</button>
+      <textarea
+        className={styles.MessageEntry}
+        onChange={props.messageUpdate}
+        onKeyDown={props.sendEnter}
+      />
+      <button className={styles.Button} onClick={props.send}>
+        Send
+      </button>
     </div>
   </Aux>
 );

@@ -10,6 +10,7 @@ let socket;
 
 class Layout extends Component {
   state = {
+    messageToBeSent: "",
     chatrooms: [
       {
         topic: "Anime/Manga",
@@ -128,6 +129,28 @@ class Layout extends Component {
     this.setState(stateCopy);
   };
 
+  messageToBeSentUpdater = event => {
+    let stateCopy = { ...this.state };
+    stateCopy.messageToBeSent = event.target.value;
+    this.setState(stateCopy);
+    console.log(this.state.messageToBeSent);
+  };
+
+  sendMessageEnter = event => {
+    if (event.keyCode === 13) {
+      this.sendMessage();
+      event.target.value = "";
+    }
+  };
+
+  sendMessage = () => {
+    socket.emit("chatMessage", {
+      topic: this.pagechecker()[0].topic,
+      message: this.state.messageToBeSent,
+      user: "Asa"
+    });
+  };
+
   render() {
     if (!socket) {
       socket = io(":4000");
@@ -144,8 +167,11 @@ class Layout extends Component {
             onclick={this.pageChanger}
           />
           <ChatPage
+            messageUpdate={e => this.messageToBeSentUpdater(e)}
             msgs={this.pagechecker()[0].messages}
             topic={this.pagechecker()[0].topic}
+            send={this.sendMessage}
+            sendEnter={e => this.sendMessageEnter(e)}
           />
         </main>
       </Aux>

@@ -12,7 +12,11 @@ const chatPage = props => {
     <div className={styles.ChatPage}>
       <ChatrooomName topic={props.topic} />
       <div className={styles.Chat}>{messages}</div>
-      <MessageEntry />
+      <MessageEntry
+        messageUpdate={props.messageUpdate}
+        send={props.send}
+        sendEnter={props.sendEnter}
+      />
     </div>
   );
 };
