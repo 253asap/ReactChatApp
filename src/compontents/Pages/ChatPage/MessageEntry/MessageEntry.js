@@ -9,6 +9,7 @@ const messageEnty = props => (
         className={styles.MessageEntry}
         onChange={props.messageUpdate}
         onKeyDown={props.sendEnter}
+        value={props.messageToBeSent}
       />
       <button className={styles.Button} onClick={props.send}>
         Send

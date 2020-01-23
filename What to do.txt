@@ -1,4 +1,9 @@
 ~Create login page
 ~create register page
-create basic chat rooms
+~create basic chat rooms
 do database things
+login authentication
+add button for optional enter button send
+clear button
+fix message and side items css
+do mobile/tablet view css

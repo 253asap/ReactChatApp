@@ -16,6 +16,7 @@ const chatPage = props => {
         messageUpdate={props.messageUpdate}
         send={props.send}
         sendEnter={props.sendEnter}
+        messageToBeSent={props.messageToBeSent}
       />
     </div>
   );

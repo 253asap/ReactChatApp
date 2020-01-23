@@ -4,7 +4,10 @@ var io = require("socket.io")(http);
 
 io.on("connection", function(socket) {
   console.log("a user connected");
-  socket.on("chatMessage", data => console.log(data));
+  socket.on("chatMessage", msg => {
+    console.log(msg);
+    io.emit("chatMessage", msg);
+  });
 });
 
 http.listen(4000, function() {

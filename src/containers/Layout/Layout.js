@@ -129,17 +129,24 @@ class Layout extends Component {
     this.setState(stateCopy);
   };
 
+  clearMessage = () => {
+    let stateCopy = { ...this.state };
+    stateCopy.messageToBeSent = "";
+    this.setState(stateCopy);
+  };
+
   messageToBeSentUpdater = event => {
     let stateCopy = { ...this.state };
     stateCopy.messageToBeSent = event.target.value;
     this.setState(stateCopy);
-    console.log(this.state.messageToBeSent);
   };
 
   sendMessageEnter = event => {
     if (event.keyCode === 13) {
+      event.preventDefault();
       this.sendMessage();
-      event.target.value = "";
+      event.preventDefault();
+      this.clearMessage();
     }
   };
 
@@ -149,11 +156,28 @@ class Layout extends Component {
       message: this.state.messageToBeSent,
       user: "Asa"
     });
+    this.clearMessage();
+  };
+
+  receiveMessage = message => {
+    const time = new Date().toLocaleTimeString();
+    const topic = message.topic;
+    const stateCopy = { ...this.state };
+    const roomIndex = stateCopy.chatrooms.findIndex(t => t.topic === topic);
+    stateCopy.chatrooms[roomIndex].messages.push({
+      message: message.message,
+      user: message.user,
+      time: time
+    });
+    this.setState(stateCopy);
   };
 
   render() {
     if (!socket) {
       socket = io(":4000");
+      socket.on("chatMessage", msg => {
+        this.receiveMessage(msg);
+      });
     }
     this.pagechecker();
     return (
@@ -172,6 +196,7 @@ class Layout extends Component {
             topic={this.pagechecker()[0].topic}
             send={this.sendMessage}
             sendEnter={e => this.sendMessageEnter(e)}
+            messageToBeSent={this.state.messageToBeSent}
           />
         </main>
       </Aux>
