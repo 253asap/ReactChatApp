@@ -6,7 +6,7 @@ const Navigation = props => (
   <header className={styles.Navigation}>
     <nav>
       <ul>
-        <li className={styles.Logo}>
+        <li className={styles.Logo} onClick={props.toggleSide}>
           <img src={LogoImg} alt="Logo" key="logo" />
         </li>
       </ul>

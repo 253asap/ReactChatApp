@@ -33,13 +33,12 @@ class Layout extends Component {
         messages: [
           {
             user: "Ishigami Senku",
-            message:
-              "Hello this is a test message on the chat application I am creating."
+            message: "Random messages about technology blah blah blah"
           },
           {
             user: "Deku",
             message:
-              "Hello there bro this is a normal message that is not a test just random stuff I am typing lol."
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc porta orci ut velit sagittis ultricies. Donec eu ex vel dui pretium vulputate. Aliquam in nulla a ligula aliquam luctus. Morbi."
           }
         ],
         active: false
@@ -50,12 +49,12 @@ class Layout extends Component {
           {
             user: "Ishigami Senku",
             message:
-              "Hello this is a test message on the chat application I am creating."
+              "ultricies. Donec eu ex vel dui pretium vulputate. Aliquam in nulla a ligula"
           },
           {
             user: "Deku",
             message:
-              "Hello there bro this is a normal message that is not a test just random stuff I am typing lol."
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur quis vehicula nisl. Suspendisse ornare rutrum leo, et finibus ligula venenatis non. Nam eu cursus massa."
           }
         ],
         active: false
@@ -66,12 +65,12 @@ class Layout extends Component {
           {
             user: "Ishigami Senku",
             message:
-              "Hello this is a test message on the chat application I am creating."
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam iaculis mi sem, sed ultricies purus."
           },
           {
             user: "Deku",
             message:
-              "Hello there bro this is a normal message that is not a test just random stuff I am typing lol."
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tincidunt ligula quam, eu rhoncus lectus commodo eu. Sed leo magna."
           }
         ],
         active: false
@@ -82,28 +81,29 @@ class Layout extends Component {
           {
             user: "Ishigami Senku",
             message:
-              "Hello this is a test message on the chat application I am creating."
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent congue dui vel dolor feugiat, vitae dictum leo commodo. Sed et porta dui. Donec egestas justo in est pulvinar, tempor accumsan."
           },
           {
             user: "Deku",
             message:
-              "Hello there bro this is a normal message that is not a test just random stuff I am typing lol."
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris convallis varius ornare. Aliquam pretium ac."
           }
         ],
         active: false
       }
     ],
     showDm: false,
+    showSideMenu: true,
     messages: [
       {
         user: "Ishigami Senku",
         message:
-          "Hello this is a test message on the chat application I am creating."
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam iaculis mi sem, sed ultricies purus."
       },
       {
         user: "Deku",
         message:
-          "Hello there bro this is a normal message that is not a test just random stuff I am typing lol."
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sed fermentum felis, sed ullamcorper mauris. Sed turpis sapien, aliquet id eros in, malesuada laoreet lectus."
       }
     ]
   };
@@ -111,6 +111,12 @@ class Layout extends Component {
   toggleChat = () => {
     let stateCopy = { ...this.state };
     stateCopy.showDm = !this.state.showDm;
+    this.setState(stateCopy);
+  };
+
+  toggleSideMenu = () => {
+    let stateCopy = { ...this.state };
+    stateCopy.showSideMenu = !this.state.showSideMenu;
     this.setState(stateCopy);
   };
 
@@ -151,12 +157,15 @@ class Layout extends Component {
   };
 
   sendMessage = () => {
-    socket.emit("chatMessage", {
-      topic: this.pagechecker()[0].topic,
-      message: this.state.messageToBeSent,
-      user: "Asa"
-    });
-    this.clearMessage();
+    if (this.state.messageToBeSent === "") {
+    } else {
+      socket.emit("chatMessage", {
+        topic: this.pagechecker()[0].topic,
+        message: this.state.messageToBeSent,
+        user: "Asa"
+      });
+      this.clearMessage();
+    }
   };
 
   receiveMessage = message => {
@@ -182,9 +191,10 @@ class Layout extends Component {
     this.pagechecker();
     return (
       <Aux>
-        <Navigation />
+        <Navigation toggleSide={this.toggleSideMenu} />
         <main className={styles.MainContainer}>
           <SideMenu
+            showSideMenu={this.state.showSideMenu}
             showDm={this.state.showDm}
             toggle={this.toggleChat}
             chats={this.state.chatrooms}

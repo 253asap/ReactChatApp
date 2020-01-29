@@ -9,7 +9,9 @@ const chatMessage = props => (
     />
     <div className={styles.ChatMessageText}>
       <h1>{props.user}</h1>
-      <span>{props.msg}</span>
+      <div>
+        <span>{props.msg}</span>
+      </div>
     </div>
   </div>
 );

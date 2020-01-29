@@ -18,7 +18,9 @@ const sideMenu = props => {
   });
 
   return (
-    <div className={styles.SideMenu}>
+    <div
+      className={props.showSideMenu ? styles.SideMenu : styles.SideMenuHidden}
+    >
       <div className={styles.Sections}>
         <span style={props.showDm ? null : active} onClick={props.toggle}>
           Chats
