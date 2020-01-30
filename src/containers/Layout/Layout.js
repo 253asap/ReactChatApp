@@ -120,7 +120,7 @@ class Layout extends Component {
     this.setState(stateCopy);
   };
 
-  pagechecker = () => {
+  currentPagechecker = () => {
     let pageToRender = this.state.chatrooms.filter(
       page => page.active === true
     );
@@ -160,7 +160,7 @@ class Layout extends Component {
     if (this.state.messageToBeSent === "") {
     } else {
       socket.emit("chatMessage", {
-        topic: this.pagechecker()[0].topic,
+        topic: this.currentPagechecker()[0].topic,
         message: this.state.messageToBeSent,
         user: "Asa"
       });
@@ -188,7 +188,7 @@ class Layout extends Component {
         this.receiveMessage(msg);
       });
     }
-    this.pagechecker();
+    this.currentPagechecker();
     return (
       <Aux>
         <Navigation toggleSide={this.toggleSideMenu} />
@@ -202,8 +202,8 @@ class Layout extends Component {
           />
           <ChatPage
             messageUpdate={e => this.messageToBeSentUpdater(e)}
-            msgs={this.pagechecker()[0].messages}
-            topic={this.pagechecker()[0].topic}
+            msgs={this.currentPagechecker()[0].messages}
+            topic={this.currentPagechecker()[0].topic}
             send={this.sendMessage}
             sendEnter={e => this.sendMessageEnter(e)}
             messageToBeSent={this.state.messageToBeSent}
