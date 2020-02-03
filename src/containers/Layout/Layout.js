@@ -4,9 +4,6 @@ import Navigation from "../../compontents/Navigation/Navigation";
 import styles from "./Layout.module.css";
 import ChatPage from "../../compontents/Pages/ChatPage/ChatPage";
 import SideMenu from "../../compontents/SideMenu/SideMenu";
-import io from "socket.io-client";
-
-let socket;
 
 class Layout extends Component {
   state = {
@@ -159,7 +156,7 @@ class Layout extends Component {
   sendMessage = () => {
     if (this.state.messageToBeSent === "") {
     } else {
-      socket.emit("chatMessage", {
+      this.props.socket.emit("chatMessage", {
         topic: this.currentPagechecker()[0].topic,
         message: this.state.messageToBeSent,
         user: "Asa"
@@ -182,12 +179,10 @@ class Layout extends Component {
   };
 
   render() {
-    if (!socket) {
-      socket = io(":4000");
-      socket.on("chatMessage", msg => {
-        this.receiveMessage(msg);
-      });
-    }
+    // this.props.socket.on("chatMessage", msg => {
+    //   console.log(msg);
+    //   this.receiveMessage(msg);
+    // });
     this.currentPagechecker();
     return (
       <Aux>

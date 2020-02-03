@@ -5,8 +5,8 @@ import MessageEntry from "../ChatPage/MessageEntry/MessageEntry";
 import ChatMessage from "../ChatPage/ChatMessage/ChatMessage";
 
 const chatPage = props => {
-  let messages = props.msgs.map(msg => {
-    return <ChatMessage user={msg.user} msg={msg.message} />;
+  let messages = props.msgs.map((msg, index) => {
+    return <ChatMessage user={msg.user} msg={msg.message} key={index} />;
   });
   return (
     <div className={styles.ChatPage}>
