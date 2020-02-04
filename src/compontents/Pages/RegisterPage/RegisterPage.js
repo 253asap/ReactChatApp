@@ -4,6 +4,12 @@ import styles from "../LoginPage/LoginPage.module.css";
 const RegisterPage = props => {
   const username = useRef(null);
   const password = useRef(null);
+  props.socket.on("registerStatus", status => {
+    console.log(status);
+    if (status.success) {
+      window.location.href = "/login";
+    }
+  });
   return (
     <div className={styles.Back}>
       <div className={styles.LoginBox}>
@@ -25,7 +31,13 @@ const RegisterPage = props => {
             ref={password}
           />
         </div>
-        <button onClick={props.register(username, password)}>Register</button>
+        <button
+          onClick={() =>
+            props.register(username.current.value, password.current.value)
+          }
+        >
+          Register
+        </button>
         <a href="/login">
           Already have an account? Click here to <span>login</span>
         </a>

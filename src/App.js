@@ -96,8 +96,8 @@ class App extends React.Component {
   };
 
   registerUser = (user, pass) => {
-    socket.emit("register", { user: user, password: pass });
-    console.log(user, pass);
+    socket.emit("register", { username: user, password: pass });
+    // window.location.href = "/login";
   };
 
   sendMessage = (msg, topic, user) => {
@@ -138,7 +138,6 @@ class App extends React.Component {
               render={props => (
                 <Layout
                   {...props}
-                  socket={socket}
                   chatrooms={this.state.chatrooms}
                   sendMsg={this.sendMessage}
                 />
@@ -147,7 +146,11 @@ class App extends React.Component {
             <Route
               path="/register"
               render={props => (
-                <RegisterPage {...props} register={this.registerUser} />
+                <RegisterPage
+                  {...props}
+                  register={this.registerUser}
+                  socket={socket}
+                />
               )}
             />
             <Route path="/login" component={LoginPage} />
