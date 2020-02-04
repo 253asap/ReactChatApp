@@ -8,87 +8,7 @@ import SideMenu from "../../compontents/SideMenu/SideMenu";
 class Layout extends Component {
   state = {
     messageToBeSent: "",
-    chatrooms: [
-      {
-        topic: "Anime/Manga",
-        messages: [
-          {
-            user: "Ishigami Senku",
-            message:
-              "Hello this is a test message on the chat application I am creating."
-          },
-          {
-            user: "Deku",
-            message:
-              "Hello there bro this is a normal message that is not a test just random stuff I am typing lol."
-          }
-        ],
-        active: true
-      },
-      {
-        topic: "Technology",
-        messages: [
-          {
-            user: "Ishigami Senku",
-            message: "Random messages about technology blah blah blah"
-          },
-          {
-            user: "Deku",
-            message:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc porta orci ut velit sagittis ultricies. Donec eu ex vel dui pretium vulputate. Aliquam in nulla a ligula aliquam luctus. Morbi."
-          }
-        ],
-        active: false
-      },
-      {
-        topic: "Random",
-        messages: [
-          {
-            user: "Ishigami Senku",
-            message:
-              "ultricies. Donec eu ex vel dui pretium vulputate. Aliquam in nulla a ligula"
-          },
-          {
-            user: "Deku",
-            message:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur quis vehicula nisl. Suspendisse ornare rutrum leo, et finibus ligula venenatis non. Nam eu cursus massa."
-          }
-        ],
-        active: false
-      },
-      {
-        topic: "Video Games",
-        messages: [
-          {
-            user: "Ishigami Senku",
-            message:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam iaculis mi sem, sed ultricies purus."
-          },
-          {
-            user: "Deku",
-            message:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tincidunt ligula quam, eu rhoncus lectus commodo eu. Sed leo magna."
-          }
-        ],
-        active: false
-      },
-      {
-        topic: "Fashion",
-        messages: [
-          {
-            user: "Ishigami Senku",
-            message:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent congue dui vel dolor feugiat, vitae dictum leo commodo. Sed et porta dui. Donec egestas justo in est pulvinar, tempor accumsan."
-          },
-          {
-            user: "Deku",
-            message:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris convallis varius ornare. Aliquam pretium ac."
-          }
-        ],
-        active: false
-      }
-    ],
+    chatrooms: this.props.chatrooms,
     showDm: false,
     showSideMenu: true,
     messages: [
@@ -156,33 +76,16 @@ class Layout extends Component {
   sendMessage = () => {
     if (this.state.messageToBeSent === "") {
     } else {
-      this.props.socket.emit("chatMessage", {
-        topic: this.currentPagechecker()[0].topic,
-        message: this.state.messageToBeSent,
-        user: "Asa"
-      });
+      this.props.sendMsg(
+        this.state.messageToBeSent,
+        this.currentPagechecker()[0].topic,
+        "Asa"
+      );
       this.clearMessage();
     }
   };
 
-  receiveMessage = message => {
-    const time = new Date().toLocaleTimeString();
-    const topic = message.topic;
-    const stateCopy = { ...this.state };
-    const roomIndex = stateCopy.chatrooms.findIndex(t => t.topic === topic);
-    stateCopy.chatrooms[roomIndex].messages.push({
-      message: message.message,
-      user: message.user,
-      time: time
-    });
-    this.setState(stateCopy);
-  };
-
   render() {
-    // this.props.socket.on("chatMessage", msg => {
-    //   console.log(msg);
-    //   this.receiveMessage(msg);
-    // });
     this.currentPagechecker();
     return (
       <Aux>

@@ -25,7 +25,7 @@ const RegisterPage = props => {
             ref={password}
           />
         </div>
-        <button>Register</button>
+        <button onClick={props.register(username, password)}>Register</button>
         <a href="/login">
           Already have an account? Click here to <span>login</span>
         </a>
