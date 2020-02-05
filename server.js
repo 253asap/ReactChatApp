@@ -13,12 +13,18 @@ io.on("connection", function(socket) {
     currentUsers -= 1;
     console.log(`${currentUsers} online now`);
   });
+
   socket.on("register", info => {
+    console.log(info);
+    const regiStasus = { username: false };
     if (info.username.length > 0 && info.username.match(/^[a-zA-Z0-9_]*$/)) {
-      io.emit("registerStatus", { success: true });
+      regiStasus.username = true;
+      userDB.push({ username: info.username, password: info.password });
     }
+    io.emit("registerStatus", regiStasus);
     console.log(info);
   });
+
   socket.on("chatMessage", msg => {
     console.log(msg);
     io.emit("chatMessage", msg);

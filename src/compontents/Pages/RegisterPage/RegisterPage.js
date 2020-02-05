@@ -6,10 +6,11 @@ const RegisterPage = props => {
   const password = useRef(null);
   props.socket.on("registerStatus", status => {
     console.log(status);
-    if (status.success) {
+    if (status.username) {
       window.location.href = "/login";
     }
   });
+
   return (
     <div className={styles.Back}>
       <div className={styles.LoginBox}>
@@ -32,9 +33,17 @@ const RegisterPage = props => {
           />
         </div>
         <button
-          onClick={() =>
-            props.register(username.current.value, password.current.value)
-          }
+          onClick={() => {
+            if (!username.current.value.match(/^[a-zA-Z0-9_]*$/)) {
+              alert("Invalid Username!");
+            } else if (username.current.value === "") {
+              alert("Invalid Username!");
+            } else if (password.current.value.length < 1) {
+              alert("Please enter a password!");
+            } else {
+              props.register(username.current.value, password.current.value);
+            }
+          }}
         >
           Register
         </button>
