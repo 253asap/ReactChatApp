@@ -4,6 +4,15 @@ import styles from "./LoginPage.module.css";
 const LoginPage = props => {
   const username = useRef(null);
   const password = useRef(null);
+  props.socket.on("loginStatus", status => {
+    if (status.success) {
+      props.user.name = status.user;
+      console.log(props.user.name);
+      window.location.href = "/";
+    } else {
+      alert("invalid username or password");
+    }
+  });
   return (
     <div className={styles.Back}>
       <div className={styles.LoginBox}>
@@ -25,7 +34,13 @@ const LoginPage = props => {
             ref={password}
           />
         </div>
-        <button>Login</button>
+        <button
+          onClick={() =>
+            props.login(username.current.value, password.current.value)
+          }
+        >
+          Login
+        </button>
         <a href="/register">
           No account? Click here to <span>register</span>
         </a>

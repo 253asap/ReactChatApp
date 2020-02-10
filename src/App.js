@@ -10,7 +10,6 @@ let socket;
 
 class App extends React.Component {
   state = {
-    loginKey: "",
     chatrooms: [
       {
         topic: "Anime/Manga",
@@ -92,11 +91,16 @@ class App extends React.Component {
         active: false
       }
     ],
-    user: { name: "", messages: [] }
+    user: { name: "", messages: [], key: null }
   };
 
   registerUser = (user, pass) => {
     socket.emit("register", { username: user, password: pass });
+    // window.location.href = "/login";
+  };
+
+  loginUser = (user, pass) => {
+    socket.emit("login", { username: user, password: pass });
     // window.location.href = "/login";
   };
 
@@ -138,6 +142,7 @@ class App extends React.Component {
               render={props => (
                 <Layout
                   {...props}
+                  user={this.state.user}
                   chatrooms={this.state.chatrooms}
                   sendMsg={this.sendMessage}
                 />
@@ -153,7 +158,17 @@ class App extends React.Component {
                 />
               )}
             />
-            <Route path="/login" component={LoginPage} />
+            <Route
+              path="/login"
+              render={props => (
+                <LoginPage
+                  {...props}
+                  login={this.loginUser}
+                  user={this.state.user}
+                  socket={socket}
+                />
+              )}
+            />
           </Switch>
         </Aux>
       </Router>

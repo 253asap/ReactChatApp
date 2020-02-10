@@ -79,7 +79,7 @@ class Layout extends Component {
       this.props.sendMsg(
         this.state.messageToBeSent,
         this.currentPagechecker()[0].topic,
-        "Asa"
+        this.props.user.name
       );
       this.clearMessage();
     }

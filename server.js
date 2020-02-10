@@ -15,14 +15,28 @@ io.on("connection", function(socket) {
   });
 
   socket.on("register", info => {
-    console.log(info);
     const regiStasus = { username: false };
     if (info.username.length > 0 && info.username.match(/^[a-zA-Z0-9_]*$/)) {
       regiStasus.username = true;
       userDB.push({ username: info.username, password: info.password });
+      console.log(userDB);
     }
-    io.emit("registerStatus", regiStasus);
-    console.log(info);
+    socket.emit("registerStatus", regiStasus);
+  });
+
+  socket.on("login", info => {
+    let userLoggingIn = userDB.find(user => user.username === info.username);
+    if (userLoggingIn == null) {
+      console.log(userLoggingIn);
+      socket.emit("loginStatus", { success: false });
+    } else {
+      console.log(userLoggingIn.password === info.password);
+      if (userLoggingIn.password === info.password) {
+        socket.emit("loginStatus", { success: true, user: info.username });
+      } else {
+        socket.emit("loginStatus", { success: false });
+      }
+    }
   });
 
   socket.on("chatMessage", msg => {
