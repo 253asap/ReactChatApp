@@ -17,22 +17,32 @@ io.on("connection", function(socket) {
   socket.on("register", info => {
     const regiStasus = { username: false };
     if (info.username.length > 0 && info.username.match(/^[a-zA-Z0-9_]*$/)) {
-      regiStasus.username = true;
-      userDB.push({ username: info.username, password: info.password });
-      console.log(userDB);
+      let userRegistering = userDB.find(
+        user => user.username.toLowerCase() === info.username.toLowerCase()
+      );
+      if (userRegistering == null) {
+        regiStasus.username = true;
+        userDB.push({ username: info.username, password: info.password });
+        console.log(userDB);
+      }
     }
     socket.emit("registerStatus", regiStasus);
   });
 
   socket.on("login", info => {
-    let userLoggingIn = userDB.find(user => user.username === info.username);
+    let userLoggingIn = userDB.find(
+      user => user.username.toLowerCase() === info.username.toLowerCase()
+    );
     if (userLoggingIn == null) {
       console.log(userLoggingIn);
       socket.emit("loginStatus", { success: false });
     } else {
       console.log(userLoggingIn.password === info.password);
       if (userLoggingIn.password === info.password) {
-        socket.emit("loginStatus", { success: true, user: info.username });
+        socket.emit("loginStatus", {
+          success: true,
+          user: userLoggingIn.username
+        });
       } else {
         socket.emit("loginStatus", { success: false });
       }

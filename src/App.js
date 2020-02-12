@@ -6,7 +6,7 @@ import LoginPage from "./compontents/Pages/LoginPage/LoginPage";
 import RegisterPage from "./compontents/Pages/RegisterPage/RegisterPage";
 import io from "socket.io-client";
 
-let socket;
+let socket = io(":4000");
 
 class App extends React.Component {
   state = {
@@ -104,12 +104,24 @@ class App extends React.Component {
     // window.location.href = "/login";
   };
 
+  updateUser = () => {
+    if (this.state.user.name === "") {
+      let name = sessionStorage.getItem("name");
+      let key = sessionStorage.getItem("key");
+      const stateCopy = { ...this.state };
+      stateCopy.user.name = name;
+      stateCopy.user.key = key;
+      this.setState(stateCopy);
+    }
+  };
+
   sendMessage = (msg, topic, user) => {
     socket.emit("chatMessage", {
       topic: topic,
       message: msg,
       user: user
     });
+    console.log("sent");
   };
 
   receiveMessage = message => {
@@ -125,13 +137,13 @@ class App extends React.Component {
     this.setState(stateCopy);
   };
 
-  render() {
-    if (!socket) {
-      socket = io(":4000");
-    }
-    socket.once("chatMessage", msg => {
+  componentDidMount() {
+    socket.on("chatMessage", msg => {
       this.receiveMessage(msg);
     });
+  }
+
+  render() {
     return (
       <Router>
         <Aux>
@@ -142,6 +154,7 @@ class App extends React.Component {
               render={props => (
                 <Layout
                   {...props}
+                  updateUser={this.updateUser}
                   user={this.state.user}
                   chatrooms={this.state.chatrooms}
                   sendMsg={this.sendMessage}

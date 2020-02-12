@@ -8,6 +8,8 @@ const RegisterPage = props => {
     console.log(status);
     if (status.username) {
       window.location.href = "/login";
+    } else {
+      alert("Username already in use");
     }
   });
 

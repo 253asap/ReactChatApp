@@ -86,6 +86,7 @@ class Layout extends Component {
   };
 
   render() {
+    this.props.updateUser();
     this.currentPagechecker();
     return (
       <Aux>
