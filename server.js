@@ -7,8 +7,12 @@ let userDB = [];
 let usersOnline = [];
 
 let authenticateKey = (name, key) => {
+  let authenticated = false;
   const account = usersOnline.find(acc => acc.user === name);
-  return key === account.key;
+  if (account !== undefined) {
+    authenticated = key === account.key;
+  }
+  return authenticated;
 };
 
 io.on("connection", function(socket) {
@@ -41,13 +45,15 @@ io.on("connection", function(socket) {
       socket.emit("loginStatus", { success: false });
     } else {
       if (userLoggingIn.password === info.password) {
+        const userKey = Math.floor(100000 + Math.random() * 900000);
         usersOnline.push({
           user: userLoggingIn.username,
-          key: Math.floor(100000 + Math.random() * 900000)
+          key: userKey
         });
         socket.emit("loginStatus", {
           success: true,
-          user: userLoggingIn.username
+          user: userLoggingIn.username,
+          key: userKey
         });
         console.log(usersOnline);
       } else {
@@ -57,8 +63,10 @@ io.on("connection", function(socket) {
   });
 
   socket.on("chatMessage", msg => {
-    console.log(msg);
-    io.emit("chatMessage", msg);
+    if (authenticateKey(msg.user, msg.key)) {
+      console.log(msg);
+      io.emit("chatMessage", msg);
+    }
   });
 });
 

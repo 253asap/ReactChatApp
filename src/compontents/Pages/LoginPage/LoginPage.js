@@ -7,7 +7,7 @@ const LoginPage = props => {
   props.socket.on("loginStatus", status => {
     if (status.success) {
       sessionStorage.setItem("name", status.user);
-      sessionStorage.setItem("key", "3");
+      sessionStorage.setItem("key", status.key);
       window.location.href = "/";
     } else {
       alert("invalid username or password");

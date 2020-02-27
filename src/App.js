@@ -115,11 +115,12 @@ class App extends React.Component {
     }
   };
 
-  sendMessage = (msg, topic, user) => {
+  sendMessage = (msg, topic, user, key) => {
     socket.emit("chatMessage", {
       topic: topic,
       message: msg,
-      user: user
+      user: user,
+      key: key
     });
     console.log("sent");
   };
