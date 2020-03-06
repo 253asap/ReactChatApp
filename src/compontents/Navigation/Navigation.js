@@ -12,7 +12,7 @@ const Navigation = props => (
       </ul>
       <ul>
         <li>
-          <a href="/login">Login</a>
+          <a href="/login">{props.auth ? "Logout" : "Login"}</a>
         </li>
       </ul>
     </nav>

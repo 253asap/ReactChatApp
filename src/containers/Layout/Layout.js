@@ -22,7 +22,8 @@ class Layout extends Component {
         message:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sed fermentum felis, sed ullamcorper mauris. Sed turpis sapien, aliquet id eros in, malesuada laoreet lectus."
       }
-    ]
+    ],
+    authenticated: true
   };
 
   toggleChat = () => {
@@ -91,7 +92,10 @@ class Layout extends Component {
     this.currentPagechecker();
     return (
       <Aux>
-        <Navigation toggleSide={this.toggleSideMenu} />
+        <Navigation
+          auth={this.state.authenticated}
+          toggleSide={this.toggleSideMenu}
+        />
         <main className={styles.MainContainer}>
           <SideMenu
             showSideMenu={this.state.showSideMenu}
